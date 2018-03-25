@@ -9,27 +9,52 @@
         <property expression="$ctx:ERROR_DETAIL" name="ERROR_DETAIL"/>
         <property expression="$ctx:ERROR_EXCEPTION" name="ERROR_EXCEPTION"/>
     </log>
-    <filter regex="true" source="$ctx:IsClientDoingSOAP11">
+    <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    +                     Si hemos recibido un FAULT se encadena                          +
+    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <filter description="HTTP 500" regex="[5]\d{2}$" source="$axis2:HTTP_SC">
         <then>
-            <makefault description="SOAP11" response="true" version="soap11">
+            <filter description="SOAP12" xmlns:soapenv12="http://www.w3.org/2003/05/soap-envelope" xpath="//soapenv12:Fault/soapenv12:Reason">
+                <then>
+                    <property expression="fn:concat('{Reason:',//soapenv12:Fault/soapenv12:Reason,' Detail:',//soapenv12:Fault/soapenv12:Detail,'}')" name="AMTEGA_FAULT_RECEIVED" scope="default" type="STRING"/>
+                </then>
+                <else>
+                    <filter description="SOAP11" xmlns:soapenv11="http://schemas.xmlsoap.org/soap/envelope/" xpath="//soapenv11:Fault/faultstring">
+                        <then>
+                            <property expression="fn:concat('{Reason:',//soapenv11:Fault/faultstring,' Detail:',//soapenv11:Fault/detail,'}')" name="AMTEGA_FAULT_RECEIVED" scope="default" type="STRING"/>
+                        </then>
+                        <else/>
+                    </filter>
+                </else>
+            </filter>
+        </then>
+        <else/>
+    </filter>
+    <property expression="fn:concat($ctx:ERROR_MESSAGE, ' ', $ctx:AMTEGA_FAULT_RECEIVED)" name="AMTEGA_FAULT_DETAIL" scope="default" type="STRING"/>
+    <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    +                    Se construye el mensaje de FAULT                                 +
+    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <filter description="SOAP11" regex="true" source="$ctx:IsClientDoingSOAP11">
+        <then>
+            <makefault description="SOAP11" version="soap11">
                 <code value="soap11Env:Server" xmlns:soap11Env="http://schemas.xmlsoap.org/soap/envelope/"/>
                 <reason expression="$ctx:ERROR_CODE"/>
-                <detail expression="$ctx:ERROR_MESSAGE"/>
+                <detail expression="$ctx:AMTEGA_FAULT_DETAIL"/>
             </makefault>
         </then>
         <else>
-            <filter regex="true" source="$ctx:IsClientDoingREST">
+            <filter description="REST" regex="true" source="$ctx:IsClientDoingREST">
                 <then>
-                    <makefault description="REST" response="true" version="pox">
+                    <makefault description="REST" version="pox">
                         <reason expression="$ctx:ERROR_CODE"/>
-                        <detail expression="$ctx:ERROR_MESSAGE"/>
+                        <detail expression="$ctx:AMTEGA_FAULT_DETAIL"/>
                     </makefault>
                 </then>
                 <else>
-                    <makefault description="SOAP12" response="true" version="soap12">
+                    <makefault description="SOAP12" version="soap12">
                         <code value="soap12Env:VersionMismatch" xmlns:soap12Env="http://www.w3.org/2003/05/soap-envelope"/>
                         <reason expression="$ctx:ERROR_CODE"/>
-                        <detail expression="$ctx:ERROR_MESSAGE"/>
+                        <detail expression="$ctx:AMTEGA_FAULT_DETAIL"/>
                     </makefault>
                 </else>
             </filter>
@@ -37,7 +62,10 @@
     </filter>
     <header action="remove" name="To" scope="default"/>
     <property name="RESPONSE" scope="default" type="STRING" value="true"/>
-    <filter description="Si existe $ctx:AmtegaMessageID se establece como HTTP Header" xpath="$ctx:AmtegaMessageID">
+    <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    +                Si existe AmtegaMessageID se establece como HTTP Header              +
+    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <filter description="Si existe AmtegaMessageID se establece como HTTP Header" xpath="$ctx:AmtegaMessageID">
         <then>
             <property expression="$ctx:AmtegaMessageID" name="AmtegaMessageID" scope="transport" type="STRING"/>
         </then>
