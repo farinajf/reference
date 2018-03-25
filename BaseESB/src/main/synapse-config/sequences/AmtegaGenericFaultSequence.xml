@@ -52,7 +52,7 @@
                 </then>
                 <else>
                     <makefault description="SOAP12" version="soap12">
-                        <code value="soap12Env:VersionMismatch" xmlns:soap12Env="http://www.w3.org/2003/05/soap-envelope"/>
+                        <code value="soap12Env:Receiver" xmlns:soap12Env="http://www.w3.org/2003/05/soap-envelope"/>
                         <reason expression="$ctx:ERROR_CODE"/>
                         <detail expression="$ctx:AMTEGA_FAULT_DETAIL"/>
                     </makefault>
