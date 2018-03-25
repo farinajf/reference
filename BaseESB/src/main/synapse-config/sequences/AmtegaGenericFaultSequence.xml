@@ -11,18 +11,28 @@
     </log>
     <filter regex="true" source="$ctx:IsClientDoingSOAP11">
         <then>
-            <makefault version="soap11">
+            <makefault description="SOAP11" response="true" version="soap11">
                 <code value="soap11Env:Server" xmlns:soap11Env="http://schemas.xmlsoap.org/soap/envelope/"/>
                 <reason expression="$ctx:ERROR_CODE"/>
                 <detail expression="$ctx:ERROR_MESSAGE"/>
             </makefault>
         </then>
         <else>
-            <makefault version="soap12">
-                <code value="soap12Env:VersionMismatch" xmlns:soap12Env="http://www.w3.org/2003/05/soap-envelope"/>
-                <reason expression="$ctx:ERROR_CODE"/>
-                <detail expression="$ctx:ERROR_MESSAGE"/>
-            </makefault>
+            <filter regex="true" source="$ctx:IsClientDoingREST">
+                <then>
+                    <makefault description="REST" response="true" version="pox">
+                        <reason expression="$ctx:ERROR_CODE"/>
+                        <detail expression="$ctx:ERROR_MESSAGE"/>
+                    </makefault>
+                </then>
+                <else>
+                    <makefault description="SOAP12" response="true" version="soap12">
+                        <code value="soap12Env:VersionMismatch" xmlns:soap12Env="http://www.w3.org/2003/05/soap-envelope"/>
+                        <reason expression="$ctx:ERROR_CODE"/>
+                        <detail expression="$ctx:ERROR_MESSAGE"/>
+                    </makefault>
+                </else>
+            </filter>
         </else>
     </filter>
     <header action="remove" name="To" scope="default"/>
