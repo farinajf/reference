@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sequence name="AmtegaGenericInSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <property name="FORCE_ERROR_ON_SOAP_FAULT" scope="default" type="STRING" value="true"/>
     <filter description="Si viene el ID en la peticion se reutiliza; si no viene, se usa MessageID" xpath="$trp:AmtegaMessageID">
         <then>
             <property expression="$trp:AmtegaMessageID" name="AmtegaMessageID" scope="default" type="STRING"/>
