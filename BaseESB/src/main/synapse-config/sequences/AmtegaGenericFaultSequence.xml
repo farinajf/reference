@@ -8,6 +8,8 @@
         <property expression="$ctx:ERROR_MESSAGE" name="ERROR_MESSAGE"/>
         <property expression="$ctx:ERROR_DETAIL" name="ERROR_DETAIL"/>
         <property expression="$ctx:ERROR_EXCEPTION" name="ERROR_EXCEPTION"/>
+        <property expression="$ctx:proxy.name" name="PROXY"/>
+        <property expression="$ctx:ENDPOINT_PREFIX" name="ENDPOINT"/>
     </log>
     <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     +                     Si hemos recibido un FAULT se encadena                          +
@@ -30,7 +32,7 @@
         </then>
         <else/>
     </filter>
-    <property expression="fn:concat($ctx:ERROR_MESSAGE, ' ', $ctx:AMTEGA_FAULT_RECEIVED)" name="AMTEGA_FAULT_DETAIL" scope="default" type="STRING"/>
+    <property expression="fn:concat($ctx:ERROR_MESSAGE, ' [To:', $ctx:ENDPOINT_PREFIX, '] ', $ctx:AMTEGA_FAULT_RECEIVED)" name="AMTEGA_FAULT_DETAIL" scope="default" type="STRING"/>
     <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     +                    Se construye el mensaje de FAULT                                 +
     +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -52,7 +54,7 @@
                 </then>
                 <else>
                     <makefault description="SOAP12" version="soap12">
-                        <code value="soap12Env:Receiver" xmlns:soap12Env="http://www.w3.org/2003/05/soap-envelope"/>
+                        <code value="soap12Env:VersionMismatch" xmlns:soap12Env="http://www.w3.org/2003/05/soap-envelope"/>
                         <reason expression="$ctx:ERROR_CODE"/>
                         <detail expression="$ctx:AMTEGA_FAULT_DETAIL"/>
                     </makefault>
