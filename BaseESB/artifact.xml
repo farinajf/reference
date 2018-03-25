@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="AmtegaGenericFaultSequence" groupId="com.example.BaseESB.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/AmtegaGenericFaultSequence.xml</file>
+    </artifact>
+    <artifact name="AmtegaGenericInSequence" groupId="com.example.BaseESB.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/AmtegaGenericInSequence.xml</file>
+    </artifact>
+    <artifact name="AmtegaCacheOutSequence" groupId="com.example.BaseESB.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/AmtegaCacheOutSequence.xml</file>
+    </artifact>
+    <artifact name="_resource_mismatch_handler_" groupId="com.example.BaseESB.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/_resource_mismatch_handler_.xml</file>
+    </artifact>
+    <artifact name="AmtegaGenericOutSequence" groupId="com.example.BaseESB.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/AmtegaGenericOutSequence.xml</file>
+    </artifact>
+    <artifact name="AmtegaSetTransportMessageID" groupId="com.example.BaseESB.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/AmtegaSetTransportMessageID.xml</file>
+    </artifact>
+</artifacts>

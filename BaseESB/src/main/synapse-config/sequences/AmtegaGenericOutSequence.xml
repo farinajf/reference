@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="AmtegaGenericOutSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <filter regex="[45]\d{2}$" source="$axis2:HTTP_SC">
+        <then>
+            <sequence key="AmtegaGenericFaultSequence"/>
+        </then>
+        <else/>
+    </filter>
+    <property expression="$ctx:AmtegaMessageID" name="AmtegaMessageID" scope="transport" type="STRING"/>
+    <send/>
+</sequence>

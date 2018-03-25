@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="AmtegaGenericInSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <filter description="Si viene el ID en la peticion se reutiliza; si no viene, se usa MessageID" xpath="$trp:AmtegaMessageID">
+        <then>
+            <property expression="$trp:AmtegaMessageID" name="AmtegaMessageID" scope="default" type="STRING"/>
+        </then>
+        <else>
+            <property expression="get-property('MessageID')" name="AmtegaMessageID" scope="default" type="STRING"/>
+            <property expression="$ctx:AmtegaMessageID" name="AmtegaMessageID" scope="transport" type="STRING"/>
+        </else>
+    </filter>
+</sequence>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="AmtegaGenericFaultSequence" statistics="enable" trace="enable" xmlns="http://ws.apache.org/ns/synapse">
+    <log category="ERROR" level="custom">
+        <property name="text" value="LOG-ERROR:"/>
+        <property expression="$ctx:AmtegaMessageID" name="AmtegaMessageID"/>
+        <property expression="$axis2:HTTP_SC" name="HTTP_SC"/>
+        <property expression="$ctx:ERROR_CODE" name="ERROR_CODE"/>
+        <property expression="$ctx:ERROR_MESSAGE" name="ERROR_MESSAGE"/>
+        <property expression="$ctx:ERROR_DETAIL" name="ERROR_DETAIL"/>
+        <property expression="$ctx:ERROR_EXCEPTION" name="ERROR_EXCEPTION"/>
+    </log>
+    <makefault version="soap11">
+        <code value="soap11Env:Server" xmlns:soap11Env="http://schemas.xmlsoap.org/soap/envelope/"/>
+        <reason expression="$ctx:ERROR_CODE"/>
+        <detail expression="$ctx:ERROR_MESSAGE"/>
+    </makefault>
+    <header action="remove" name="To" scope="default"/>
+    <property name="RESPONSE" scope="default" type="STRING" value="true"/>
+    <property expression="$ctx:AmtegaMessageID" name="AmtegaMessageID" scope="transport" type="STRING"/>
+    <send/>
+</sequence>
