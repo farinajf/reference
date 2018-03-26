@@ -6,6 +6,17 @@
         </then>
         <else/>
     </filter>
-    <property expression="$ctx:AmtegaMessageID" name="AmtegaMessageID" scope="transport" type="STRING"/>
+    <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    +                Si existe AmtegaMessageID se establece como HTTP Header              +
+    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <filter description="Si existe AmtegaMessageID se establece como HTTP Header" xpath="$ctx:AmtegaMessageID">
+        <then>
+            <property expression="$ctx:AmtegaMessageID" name="AmtegaMessageID" scope="transport" type="STRING"/>
+        </then>
+        <else/>
+    </filter>
+    <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    +                                    SEND RESPONSE                                    +
+    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <send/>
 </sequence>
