@@ -50,7 +50,7 @@
                         <then>
                             <makefault response="true" version="pox">
                                 <reason expression="$ctx:ERROR_MESSAGE"/>
-                                <detail expression="$ctx:ERROR_DETAIL"/>
+                                <detail expression="fn:concat('[ErrorCode: ', $ctx:ERROR_CODE,'] [ProxyName: ', $ctx:proxy.name, '] [Endpoint: ', $ctx:ENDPOINT_PREFIX, '] [Detail: ', $ctx:ERROR_DETAIL)"/>
                             </makefault>
                         </then>
                         <else>
