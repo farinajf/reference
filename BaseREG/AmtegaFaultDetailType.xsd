@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" 
+	targetNamespace="http://amtega.xunta.es/plasoaei/soareference/schemas"
+	xmlns:tns="http://amtega.xunta.es/plasoaei/soareference/schemas">
+
+	<xs:element name="amtegaFaultDetail" type="tns:AmtegaFaultDetailType"/>
+	<xs:complexType name="AmtegaFaultDetailType">
+    	<xs:sequence>
+    		<xs:element name="amtegaFaultInfo" minOccurs="0" maxOccurs="1" type="tns:AmtegaFaultInfoType"></xs:element>
+    	</xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AmtegaFaultInfoType">
+    	<xs:sequence>
+    		<xs:element name="errorCode" minOccurs="0" maxOccurs="1" type="xs:string"/>
+    		<xs:element name="endpoint" minOccurs="0" maxOccurs="1" type="xs:string"/>
+    		<xs:element name="proxyName" minOccurs="0" maxOccurs="1" type="xs:string"/>
+    		<xs:element name="detail" minOccurs="0" maxOccurs="1" type="xs:string"/>
+    	</xs:sequence>
+    </xs:complexType>
+</xs:schema>
