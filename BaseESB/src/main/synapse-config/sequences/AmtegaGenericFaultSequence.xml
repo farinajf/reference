@@ -30,7 +30,14 @@
                                         <faultstring xmlns="">$2</faultstring>
                                         <faultactor xmlns="">$3</faultactor>
                                         <detail xmlns="">
-                                            <errorDetail xmlns="http://ws.apache.org/ns/synapse">[ErrorCode: $1] [ProxyName: $4] [Endpoint: $3] [Detail: $5]</errorDetail>
+                                            <amf:amtegaFaultDetail xmlns:amf="http://amtega.xunta.es/plasoaei/soareference/schemas/">
+                                                <amf:amtegaFaultInfo>
+                                                    <amf:errorCode>$1</amf:errorCode>
+                                                    <amf:endpoint>$3</amf:endpoint>
+                                                    <amf:proxyName>$4</amf:proxyName>
+                                                    <amf:detail>$5</amf:detail>
+                                                </amf:amtegaFaultInfo>
+                                            </amf:amtegaFaultDetail>
                                         </detail>
                                     </soapenv:Fault>
                                 </soapenv:Body>
@@ -70,7 +77,14 @@
                                                 </soapenv:Reason>
                                                 <soapenv:Node>$3</soapenv:Node>
                                                 <soapenv:Detail>
-                                                    <errorDetail>[ErrorCode: $1] [ProxyName: $4] [Endpoint: $3] [Detail: $5]</errorDetail>
+                                                    <amf:amtegaFaultDetail xmlns:amf="http://amtega.xunta.es/plasoaei/soareference/schemas/">
+                                                        <amf:amtegaFaultInfo>
+                                                            <amf:errorCode>$1</amf:errorCode>
+                                                            <amf:endpoint>$3</amf:endpoint>
+                                                            <amf:proxyName>$4</amf:proxyName>
+                                                            <amf:detail>$5</amf:detail>
+                                                        </amf:amtegaFaultInfo>
+                                                    </amf:amtegaFaultDetail>
                                                 </soapenv:Detail>
                                             </soapenv:Fault>
                                         </soapenv:Body>

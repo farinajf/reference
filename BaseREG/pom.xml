@@ -76,6 +76,7 @@
               <arguments>
                 <argument>deploy</argument>
                 <argument>-Dmaven.test.skip=${maven.test.skip}</argument>
+                <argument>-Dmaven.deploy.skip=${maven.deploy.skip}</argument>
               </arguments>
             </configuration>
           </execution>
