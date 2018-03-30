@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><artifacts>
-    <artifact name="AmtegaFaultType" groupId="com.example.BaseREG.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseIntegrator">
+        <artifact name="AmtegaFaultDetailType" groupId="com.example.BaseREG.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseIntegrator">
         <item>
-            <file>AmtegaFaultType.xsd</file>
+            <file>AmtegaFaultDetailType.xsd</file>
             <path>/_system/governance/amtega</path>
             <mediaType>application/x-xsd+xml</mediaType>
         </item>
