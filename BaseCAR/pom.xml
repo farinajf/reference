@@ -14,14 +14,15 @@
   <name>BaseCAR</name>
   <description>BaseCAR</description>
   <properties>
+    <com.example.BaseREG.resource_._AmtegaFaultType>capp/EnterpriseIntegrator</com.example.BaseREG.resource_._AmtegaFaultType>
+    <artifact.types>jaggery/app=zip,lib/library/bundle=jar,service/rule=aar,event/receiver=xml,synapse/message-processors=xml,synapse/endpointTemplate=xml,synapse/message-store=xml,synapse/proxy-service=xml,event/execution-plan=siddhiql,carbon/application=car,registry/resource=zip,lib/dataservice/validator=jar,synapse/endpoint=xml,web/application=war,synapse/inbound-endpoint=xml,synapse/sequence=xml,synapse/configuration=xml,synapse/task=xml,synapse/api=xml,webapp/jaxws=war,service/meta=xml,bpel/workflow=zip,synapse/lib=zip,service/dataservice=dbs,event/publisher=xml,synapse/local-entry=xml,datasource/datasource=xml,synapse/priority-executor=xml,synapse/template=xml,synapse/event-source=xml,event/stream=json,lib/carbon/ui=jar,service/axis2=aar,synapse/sequenceTemplate=xml,wso2/gadget=dar,lib/synapse/mediator=jar</artifact.types>
+    <com.example.BaseESB.sequence_._AmtegaSetTransportMessageID>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtegaSetTransportMessageID>
     <maven.car.deploy.skip>false</maven.car.deploy.skip>
-    <com.example.BaseESB.sequence_._AmtegaCacheOutSequence>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtegaCacheOutSequence>
     <com.example.BaseESB.sequence_.__resource_mismatch_handler_>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_.__resource_mismatch_handler_>
     <com.example.BaseESB.sequence_._AmtegaGenericFaultSequence>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtegaGenericFaultSequence>
-    <com.example.BaseESB.sequence_._AmtegaSetTransportMessageID>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtegaSetTransportMessageID>
-    <com.example.BaseESB.sequence_._AmtegaGenericInSequence>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtegaGenericInSequence>
-    <artifact.types>jaggery/app=zip,lib/library/bundle=jar,service/rule=aar,event/receiver=xml,synapse/message-processors=xml,synapse/endpointTemplate=xml,synapse/message-store=xml,synapse/proxy-service=xml,event/execution-plan=siddhiql,carbon/application=car,registry/resource=zip,lib/dataservice/validator=jar,synapse/endpoint=xml,web/application=war,synapse/inbound-endpoint=xml,synapse/sequence=xml,synapse/configuration=xml,synapse/task=xml,synapse/api=xml,webapp/jaxws=war,service/meta=xml,bpel/workflow=zip,synapse/lib=zip,service/dataservice=dbs,event/publisher=xml,synapse/local-entry=xml,datasource/datasource=xml,synapse/priority-executor=xml,synapse/template=xml,synapse/event-source=xml,event/stream=json,lib/carbon/ui=jar,service/axis2=aar,synapse/sequenceTemplate=xml,wso2/gadget=dar,lib/synapse/mediator=jar</artifact.types>
     <com.example.BaseESB.sequence_._AmtegaGenericOutSequence>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtegaGenericOutSequence>
+    <com.example.BaseESB.sequence_._AmtegaGenericInSequence>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtegaGenericInSequence>
+    <com.example.BaseESB.sequence_._AmtegaCacheOutSequence>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtegaCacheOutSequence>
   </properties>
   <dependencies>
     <dependency>
@@ -59,6 +60,12 @@
       <artifactId>_resource_mismatch_handler_</artifactId>
       <version>1.0.0</version>
       <type>xml</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.BaseREG.resource</groupId>
+      <artifactId>AmtegaFaultType</artifactId>
+      <version>1.0.0</version>
+      <type>zip</type>
     </dependency>
   </dependencies>
   <repositories>
