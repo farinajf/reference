@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sequence name="_resource_mismatch_handler_" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
-    <property name="RESPONSE" scope="default" type="STRING" value="true"/>
     <property name="HTTP_SC" scope="axis2" type="STRING" value="404"/>
     <property name="HTTP_SC_DESC" scope="axis2" type="STRING" value="Not found"/>
+    <payloadFactory description="XML" media-type="xml">
+        <format>
+            <Exception>El recurso $1 no esta disponible</Exception>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="$ctx:REST_FULL_REQUEST_PATH"/>
+        </args>
+    </payloadFactory>
+    <property name="RESPONSE" scope="default" type="STRING" value="true"/>
     <header action="remove" name="To" scope="default"/>
     <send/>
 </sequence>
