@@ -4,7 +4,7 @@
     <property name="HTTP_SC_DESC" scope="axis2" type="STRING" value="Not found"/>
     <payloadFactory description="XML" media-type="xml">
         <format>
-            <Exception>El recurso $1 no esta disponible</Exception>
+            <Exception>El recurso '$1' no esta disponible</Exception>
         </format>
         <args>
             <arg evaluator="xml" expression="$ctx:REST_FULL_REQUEST_PATH"/>
