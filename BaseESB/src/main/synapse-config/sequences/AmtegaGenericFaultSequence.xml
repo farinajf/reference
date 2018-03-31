@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sequence name="AmtegaGenericFaultSequence" statistics="enable" trace="enable" xmlns="http://ws.apache.org/ns/synapse">
-    <log category="ERROR" level="custom">
+    <log category="ERROR" level="full">
         <property name="text" value="LOG-ERROR:"/>
         <property expression="$ctx:AmtegaMessageID" name="AmtegaMessageID"/>
         <property expression="$axis2:HTTP_SC" name="HTTP_SC"/>
@@ -10,73 +10,32 @@
         <property expression="$ctx:ERROR_EXCEPTION" name="ERROR_EXCEPTION"/>
         <property expression="$ctx:proxy.name" name="PROXY"/>
         <property expression="$ctx:ENDPOINT_PREFIX" name="ENDPOINT"/>
+        <property expression="$ctx:OUT_ONLY" name="OUT_ONLY"/>
     </log>
     <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 		+ Si hemos recibido un FAULT se retransmite + +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 		+ Se construye el mensaje de FAULT + +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <filter description="HTTP 500" regex="[5]\d{2}$" source="$axis2:HTTP_SC">
+    <filter description="OUT_ONLY" regex="true" source="$ctx:OUT_ONLY">
         <then>
-            <log category="ERROR" level="full"/>
+            <drop/>
         </then>
         <else>
-            <filter description="SOAP11" regex="true" source="$ctx:IsClientDoingSOAP11">
+            <filter description="HTTP 500" regex="[5]\d{2}$" source="$axis2:HTTP_SC">
                 <then>
-                    <payloadFactory description="SOAP11" media-type="xml">
-                        <format>
-                            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
-                                <soapenv:Body>
-                                    <soapenv:Fault>
-                                        <faultcode xmlns="">soapenv:Server</faultcode>
-                                        <faultstring xmlns="">$2</faultstring>
-                                        <faultactor xmlns="">$3</faultactor>
-                                        <detail xmlns="">
-                                            <amf:amtegaFaultDetail xmlns:amf="http://amtega.xunta.es/plasoaei/soareference/schemas/">
-                                                <amf:amtegaFaultInfo>
-                                                    <amf:errorCode>$1</amf:errorCode>
-                                                    <amf:endpoint>$3</amf:endpoint>
-                                                    <amf:proxyName>$4</amf:proxyName>
-                                                    <amf:detail>$5</amf:detail>
-                                                </amf:amtegaFaultInfo>
-                                            </amf:amtegaFaultDetail>
-                                        </detail>
-                                    </soapenv:Fault>
-                                </soapenv:Body>
-                            </soapenv:Envelope>
-                        </format>
-                        <args>
-                            <arg evaluator="xml" expression="$ctx:ERROR_CODE"/>
-                            <arg evaluator="xml" expression="$ctx:ERROR_MESSAGE"/>
-                            <arg evaluator="xml" expression="$ctx:ENDPOINT_PREFIX"/>
-                            <arg evaluator="xml" expression="$ctx:proxy.name"/>
-                            <arg evaluator="xml" expression="$ctx:ERROR_DETAIL"/>
-                        </args>
-                    </payloadFactory>
+                    <log category="ERROR" level="full"/>
                 </then>
                 <else>
-                    <filter description="REST" regex="true" source="$ctx:IsClientDoingREST">
+                    <filter description="SOAP11" regex="true" source="$ctx:IsClientDoingSOAP11">
                         <then>
-                            <makefault response="true" version="pox">
-                                <reason expression="$ctx:ERROR_MESSAGE"/>
-                                <detail expression="fn:concat('[ErrorCode: ', $ctx:ERROR_CODE,'] [ProxyName: ', $ctx:proxy.name, '] [Endpoint: ', $ctx:ENDPOINT_PREFIX, '] [Detail: ', $ctx:ERROR_DETAIL)"/>
-                            </makefault>
-                        </then>
-                        <else>
-                            <payloadFactory description="SOAP12" media-type="xml">
+                            <payloadFactory description="SOAP11" media-type="xml">
                                 <format>
-                                    <soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
+                                    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
                                         <soapenv:Body>
                                             <soapenv:Fault>
-                                                <soapenv:Code>
-                                                    <soapenv:Value>soapenv:Receiver</soapenv:Value>
-                                                    <soapenv:Subcode>
-                                                        <soapenv:Value>$1</soapenv:Value>
-                                                    </soapenv:Subcode>
-                                                </soapenv:Code>
-                                                <soapenv:Reason>
-                                                    <soapenv:Text xml:lang="en">$2</soapenv:Text>
-                                                </soapenv:Reason>
-                                                <soapenv:Node>$3</soapenv:Node>
-                                                <soapenv:Detail>
+                                                <faultcode xmlns="">soapenv:Server</faultcode>
+                                                <faultstring xmlns="">$2</faultstring>
+                                                <faultactor xmlns="">$3</faultactor>
+                                                <detail xmlns="">
                                                     <amf:amtegaFaultDetail xmlns:amf="http://amtega.xunta.es/plasoaei/soareference/schemas/">
                                                         <amf:amtegaFaultInfo>
                                                             <amf:errorCode>$1</amf:errorCode>
@@ -85,7 +44,7 @@
                                                             <amf:detail>$5</amf:detail>
                                                         </amf:amtegaFaultInfo>
                                                     </amf:amtegaFaultDetail>
-                                                </soapenv:Detail>
+                                                </detail>
                                             </soapenv:Fault>
                                         </soapenv:Body>
                                     </soapenv:Envelope>
@@ -98,21 +57,70 @@
                                     <arg evaluator="xml" expression="$ctx:ERROR_DETAIL"/>
                                 </args>
                             </payloadFactory>
+                        </then>
+                        <else>
+                            <filter description="REST" regex="true" source="$ctx:IsClientDoingREST">
+                                <then>
+                                    <makefault response="true" version="pox">
+                                        <reason expression="$ctx:ERROR_MESSAGE"/>
+                                        <detail expression="fn:concat('[ErrorCode: ', $ctx:ERROR_CODE,'] [ProxyName: ', $ctx:proxy.name, '] [Endpoint: ', $ctx:ENDPOINT_PREFIX, '] [Detail: ', $ctx:ERROR_DETAIL)"/>
+                                    </makefault>
+                                </then>
+                                <else>
+                                    <payloadFactory description="SOAP12" media-type="xml">
+                                        <format>
+                                            <soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
+                                                <soapenv:Body>
+                                                    <soapenv:Fault>
+                                                        <soapenv:Code>
+                                                            <soapenv:Value>soapenv:Receiver</soapenv:Value>
+                                                            <soapenv:Subcode>
+                                                                <soapenv:Value>$1</soapenv:Value>
+                                                            </soapenv:Subcode>
+                                                        </soapenv:Code>
+                                                        <soapenv:Reason>
+                                                            <soapenv:Text xml:lang="en">$2</soapenv:Text>
+                                                        </soapenv:Reason>
+                                                        <soapenv:Node>$3</soapenv:Node>
+                                                        <soapenv:Detail>
+                                                            <amf:amtegaFaultDetail xmlns:amf="http://amtega.xunta.es/plasoaei/soareference/schemas/">
+                                                                <amf:amtegaFaultInfo>
+                                                                    <amf:errorCode>$1</amf:errorCode>
+                                                                    <amf:endpoint>$3</amf:endpoint>
+                                                                    <amf:proxyName>$4</amf:proxyName>
+                                                                    <amf:detail>$5</amf:detail>
+                                                                </amf:amtegaFaultInfo>
+                                                            </amf:amtegaFaultDetail>
+                                                        </soapenv:Detail>
+                                                    </soapenv:Fault>
+                                                </soapenv:Body>
+                                            </soapenv:Envelope>
+                                        </format>
+                                        <args>
+                                            <arg evaluator="xml" expression="$ctx:ERROR_CODE"/>
+                                            <arg evaluator="xml" expression="$ctx:ERROR_MESSAGE"/>
+                                            <arg evaluator="xml" expression="$ctx:ENDPOINT_PREFIX"/>
+                                            <arg evaluator="xml" expression="$ctx:proxy.name"/>
+                                            <arg evaluator="xml" expression="$ctx:ERROR_DETAIL"/>
+                                        </args>
+                                    </payloadFactory>
+                                </else>
+                            </filter>
                         </else>
                     </filter>
                 </else>
             </filter>
+            <header action="remove" name="To" scope="default"/>
+            <property name="RESPONSE" scope="default" type="STRING" value="true"/>
+            <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+				+ Si existe AmtegaMessageID se establece como HTTP Header + +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+            <filter description="Si existe AmtegaMessageID se establece como HTTP Header" xpath="$ctx:AmtegaMessageID">
+                <then>
+                    <property expression="$ctx:AmtegaMessageID" name="AmtegaMessageID" scope="transport" type="STRING"/>
+                </then>
+                <else/>
+            </filter>
+            <send/>
         </else>
     </filter>
-    <header action="remove" name="To" scope="default"/>
-    <property name="RESPONSE" scope="default" type="STRING" value="true"/>
-    <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-		+ Si existe AmtegaMessageID se establece como HTTP Header + +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <filter description="Si existe AmtegaMessageID se establece como HTTP Header" xpath="$ctx:AmtegaMessageID">
-        <then>
-            <property expression="$ctx:AmtegaMessageID" name="AmtegaMessageID" scope="transport" type="STRING"/>
-        </then>
-        <else/>
-    </filter>
-    <send/>
 </sequence>

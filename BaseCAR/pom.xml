@@ -22,9 +22,16 @@
     <com.example.BaseESB.sequence_._AmtegaGenericFaultSequence>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtegaGenericFaultSequence>
     <com.example.BaseESB.sequence_._AmtegaGenericOutSequence>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtegaGenericOutSequence>
     <com.example.BaseESB.sequence_._AmtegaGenericInSequence>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtegaGenericInSequence>
+    
     <com.example.BaseESB.sequence_._AmtegaCacheOutSequence>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtegaCacheOutSequence>
   </properties>
   <dependencies>
+    <dependency>
+      <groupId>com.example.BaseREG.resource</groupId>
+      <artifactId>AmtegaFaultDetailType</artifactId>
+      <version>1.0.0</version>
+      <type>zip</type>
+    </dependency>
     <dependency>
       <groupId>com.example.BaseESB.sequence</groupId>
       <artifactId>AmtegaCacheOutSequence</artifactId>
@@ -37,7 +44,7 @@
       <version>1.0.0</version>
       <type>xml</type>
     </dependency>
-    <dependency>
+        <dependency>
       <groupId>com.example.BaseESB.sequence</groupId>
       <artifactId>AmtegaGenericInSequence</artifactId>
       <version>1.0.0</version>
@@ -60,12 +67,6 @@
       <artifactId>_resource_mismatch_handler_</artifactId>
       <version>1.0.0</version>
       <type>xml</type>
-    </dependency>
-    <dependency>
-      <groupId>com.example.BaseREG.resource</groupId>
-      <artifactId>AmtegaFaultDetailType</artifactId>
-      <version>1.0.0</version>
-      <type>zip</type>
     </dependency>
   </dependencies>
   <repositories>
