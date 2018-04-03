@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sequence name="AmtegaGenericFaultSequence" statistics="enable" trace="enable" xmlns="http://ws.apache.org/ns/synapse">
+<sequence name="AmtGenericFaultSequence" statistics="enable" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
     <log category="ERROR" level="full">
         <property name="text" value="LOG-ERROR:"/>
         <property expression="$ctx:AmtegaMessageID" name="AmtegaMessageID"/>

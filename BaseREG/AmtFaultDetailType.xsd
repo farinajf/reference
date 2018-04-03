@@ -4,7 +4,7 @@
 	xmlns:tns="http://amtega.xunta.es/plasoaei/soareference/schemas">
 
 	<xs:element name="amtegaFaultDetail" type="tns:AmtegaFaultDetailType"/>
-	<xs:complexType name="AmtegaFaultDetailType">
+	<xs:complexType name="AmtFaultDetailType">
     	<xs:sequence>
     		<xs:element name="amtegaFaultInfo" minOccurs="0" maxOccurs="1" type="tns:AmtegaFaultInfoType"></xs:element>
     	</xs:sequence>

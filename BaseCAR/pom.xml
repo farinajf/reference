@@ -15,50 +15,50 @@
   <description>BaseCAR</description>
   <properties>
     <artifact.types>jaggery/app=zip,lib/library/bundle=jar,service/rule=aar,event/receiver=xml,synapse/message-processors=xml,synapse/endpointTemplate=xml,synapse/message-store=xml,synapse/proxy-service=xml,event/execution-plan=siddhiql,carbon/application=car,registry/resource=zip,lib/dataservice/validator=jar,synapse/endpoint=xml,web/application=war,synapse/inbound-endpoint=xml,synapse/sequence=xml,synapse/configuration=xml,synapse/task=xml,synapse/api=xml,webapp/jaxws=war,service/meta=xml,bpel/workflow=zip,synapse/lib=zip,service/dataservice=dbs,event/publisher=xml,synapse/local-entry=xml,datasource/datasource=xml,synapse/priority-executor=xml,synapse/template=xml,synapse/event-source=xml,event/stream=json,lib/carbon/ui=jar,service/axis2=aar,synapse/sequenceTemplate=xml,wso2/gadget=dar,lib/synapse/mediator=jar</artifact.types>
-    <com.example.BaseESB.sequence_._AmtegaSetTransportMessageID>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtegaSetTransportMessageID>
+    <com.example.BaseESB.sequence_._AmtSetTransportMessageID>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtSetTransportMessageID>
     <maven.car.deploy.skip>false</maven.car.deploy.skip>
     <com.example.BaseESB.sequence_.__resource_mismatch_handler_>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_.__resource_mismatch_handler_>
-    <com.example.BaseREG.resource_._AmtegaFaultDetailType>capp/EnterpriseIntegrator</com.example.BaseREG.resource_._AmtegaFaultDetailType>
-    <com.example.BaseESB.sequence_._AmtegaGenericFaultSequence>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtegaGenericFaultSequence>
-    <com.example.BaseESB.sequence_._AmtegaGenericOutSequence>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtegaGenericOutSequence>
-    <com.example.BaseESB.sequence_._AmtegaGenericInSequence>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtegaGenericInSequence>
+    <com.example.BaseREG.resource_._AmtFaultDetailType>capp/EnterpriseIntegrator</com.example.BaseREG.resource_._AmtFaultDetailType>
+    <com.example.BaseESB.sequence_._AmtGenericFaultSequence>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtGenericFaultSequence>
+    <com.example.BaseESB.sequence_._AmtGenericOutSequence>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtGenericOutSequence>
+    <com.example.BaseESB.sequence_._AmtGenericInSequence>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtGenericInSequence>
     
-    <com.example.BaseESB.sequence_._AmtegaCacheOutSequence>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtegaCacheOutSequence>
+    <com.example.BaseESB.sequence_._AmtCacheOutSequence>capp/EnterpriseServiceBus</com.example.BaseESB.sequence_._AmtCacheOutSequence>
   </properties>
   <dependencies>
     <dependency>
       <groupId>com.example.BaseREG.resource</groupId>
-      <artifactId>AmtegaFaultDetailType</artifactId>
+      <artifactId>AmtFaultDetailType</artifactId>
       <version>1.0.0</version>
       <type>zip</type>
     </dependency>
     <dependency>
       <groupId>com.example.BaseESB.sequence</groupId>
-      <artifactId>AmtegaCacheOutSequence</artifactId>
+      <artifactId>AmtCacheOutSequence</artifactId>
       <version>1.0.0</version>
       <type>xml</type>
     </dependency>
     <dependency>
       <groupId>com.example.BaseESB.sequence</groupId>
-      <artifactId>AmtegaGenericFaultSequence</artifactId>
+      <artifactId>AmtGenericFaultSequence</artifactId>
       <version>1.0.0</version>
       <type>xml</type>
     </dependency>
         <dependency>
       <groupId>com.example.BaseESB.sequence</groupId>
-      <artifactId>AmtegaGenericInSequence</artifactId>
+      <artifactId>AmtGenericInSequence</artifactId>
       <version>1.0.0</version>
       <type>xml</type>
     </dependency>
     <dependency>
       <groupId>com.example.BaseESB.sequence</groupId>
-      <artifactId>AmtegaGenericOutSequence</artifactId>
+      <artifactId>AmtGenericOutSequence</artifactId>
       <version>1.0.0</version>
       <type>xml</type>
     </dependency>
     <dependency>
       <groupId>com.example.BaseESB.sequence</groupId>
-      <artifactId>AmtegaSetTransportMessageID</artifactId>
+      <artifactId>AmtSetTransportMessageID</artifactId>
       <version>1.0.0</version>
       <type>xml</type>
     </dependency>
