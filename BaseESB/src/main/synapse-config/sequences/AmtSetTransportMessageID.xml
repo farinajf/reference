@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sequence name="AmtSetTransportMessageID" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
-    <property expression="$ctx:AmtegaMessageID" name="AmtegaMessageID" scope="transport" type="STRING"/>
+    <property expression="$ctx:AmtMessageID" name="AmtMessageID" scope="transport" type="STRING"/>
 </sequence>

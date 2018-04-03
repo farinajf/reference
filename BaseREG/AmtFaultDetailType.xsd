@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" 
-	targetNamespace="http://amtega.xunta.es/plasoaei/soareference/schemas"
-	xmlns:tns="http://amtega.xunta.es/plasoaei/soareference/schemas">
+	targetNamespace="http://example.es"
+	xmlns:tns="http://example.es">
 
-	<xs:element name="amtegaFaultDetail" type="tns:AmtegaFaultDetailType"/>
+	<xs:element name="amtFaultDetail" type="tns:AmtFaultDetailType"/>
 	<xs:complexType name="AmtFaultDetailType">
     	<xs:sequence>
-    		<xs:element name="amtegaFaultInfo" minOccurs="0" maxOccurs="1" type="tns:AmtegaFaultInfoType"></xs:element>
+    		<xs:element name="amtFaultInfo" minOccurs="0" maxOccurs="1" type="tns:AmtFaultInfoType"></xs:element>
     	</xs:sequence>
     </xs:complexType>
-    <xs:complexType name="AmtegaFaultInfoType">
+    <xs:complexType name="AmtFaultInfoType">
     	<xs:sequence>
     		<xs:element name="errorCode" minOccurs="0" maxOccurs="1" type="xs:string"/>
     		<xs:element name="endpoint" minOccurs="0" maxOccurs="1" type="xs:string"/>

@@ -2,23 +2,23 @@
 <sequence name="AmtGenericInSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
     <property name="FORCE_ERROR_ON_SOAP_FAULT" scope="default" type="STRING" value="true"/>
     <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    +     Si viene el ID en la cabecera HTTP de la peticion se reutiliza; si no viene, se usa MessageID   +
+    +                                                                                                     +
     +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <filter description="Amtega Message ID" xpath="$trp:AmtegaMessageID">
+    <filter description="Amt Message ID" xpath="$trp:AmtMessageID">
         <then>
-            <property expression="$trp:AmtegaMessageID" name="AmtegaMessageID" scope="default" type="STRING"/>
+            <property expression="$trp:AmtMessageID" name="AmtMessageID" scope="default" type="STRING"/>
         </then>
         <else>
-            <property expression="get-property('MessageID')" name="AmtegaMessageID" scope="default" type="STRING"/>
-            <property expression="$ctx:AmtegaMessageID" name="AmtegaMessageID" scope="transport" type="STRING"/>
+            <property expression="get-property('MessageID')" name="AmtMessageID" scope="default" type="STRING"/>
+            <property expression="$ctx:AmtMessageID" name="AmtMessageID" scope="transport" type="STRING"/>
         </else>
     </filter>
     <filter description="CLIENT IP" xpath="$trp:X-Forwarded-For">
         <then>
-            <property expression="$trp:X-Forwarded-For" name="AMTEGA_CLIENT_IP" scope="default" type="STRING"/>
+            <property expression="$trp:X-Forwarded-For" name="AmtClientIP" scope="default" type="STRING"/>
         </then>
         <else>
-            <property expression="NO_IP" name="AMTEGA_CLIENT_IP" scope="default" type="STRING"/>
+            <property expression="NO_IP" name="AmtClientIP" scope="default" type="STRING"/>
         </else>
     </filter>
 </sequence>

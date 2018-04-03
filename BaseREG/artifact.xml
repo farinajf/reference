@@ -2,7 +2,7 @@
         <artifact name="AmtFaultDetailType" groupId="com.example.BaseREG.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseIntegrator">
         <item>
             <file>AmtFaultDetailType.xsd</file>
-            <path>/_system/governance/amtega</path>
+            <path>/_system/governance/xsds</path>
             <mediaType>application/x-xsd+xml</mediaType>
         </item>
     </artifact>

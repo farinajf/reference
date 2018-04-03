@@ -2,16 +2,16 @@
 <sequence name="AmtGenericOutSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
     <filter regex="[45]\d{2}$" source="$axis2:HTTP_SC">
         <then>
-            <sequence key="AmtegaGenericFaultSequence"/>
+            <sequence key="AmtGenericFaultSequence"/>
         </then>
         <else/>
     </filter>
     <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     +                                    SEND RESPONSE                                    +
     +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <filter description="Si existe AmtegaMessageID se establece como HTTP Header" xpath="$ctx:AmtegaMessageID">
+    <filter description="Si existe AmtMessageID se establece como HTTP Header" xpath="$ctx:AmtMessageID">
         <then>
-            <property expression="$ctx:AmtegaMessageID" name="AmtegaMessageID" scope="transport" type="STRING"/>
+            <property expression="$ctx:AmtMessageID" name="AmtMessageID" scope="transport" type="STRING"/>
         </then>
         <else/>
     </filter>

@@ -2,7 +2,7 @@
 <sequence name="AmtGenericFaultSequence" statistics="enable" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
     <log category="ERROR" level="full">
         <property name="text" value="LOG-ERROR:"/>
-        <property expression="$ctx:AmtegaMessageID" name="AmtegaMessageID"/>
+        <property expression="$ctx:AmtMessageID" name="AmtMessageID"/>
         <property expression="$axis2:HTTP_SC" name="HTTP_SC"/>
         <property expression="$ctx:ERROR_CODE" name="ERROR_CODE"/>
         <property expression="$ctx:ERROR_MESSAGE" name="ERROR_MESSAGE"/>
@@ -13,9 +13,6 @@
         <property expression="$ctx:ENDPOINT_PREFIX" name="ENDPOINT"/>
         <property expression="$ctx:OUT_ONLY" name="OUT_ONLY"/>
     </log>
-    <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-		+ Si hemos recibido un FAULT se retransmite + +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-		+ Se construye el mensaje de FAULT + +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <filter description="OUT_ONLY" regex="true" source="$ctx:OUT_ONLY">
         <then>
             <drop/>
@@ -62,14 +59,14 @@
                                                         <faultstring xmlns="">$2</faultstring>
                                                         <faultactor xmlns="">$3</faultactor>
                                                         <detail xmlns="">
-                                                            <amf:amtegaFaultDetail xmlns:amf="http://amtega.xunta.es/plasoaei/soareference/schemas/">
-                                                                <amf:amtegaFaultInfo>
+                                                            <amf:amtFaultDetail xmlns:amf="http://example.es">
+                                                                <amf:amtFaultInfo>
                                                                     <amf:errorCode>$1</amf:errorCode>
                                                                     <amf:endpoint>$3</amf:endpoint>
                                                                     <amf:proxyName>$4</amf:proxyName>
                                                                     <amf:detail>$5</amf:detail>
-                                                                </amf:amtegaFaultInfo>
-                                                            </amf:amtegaFaultDetail>
+                                                                </amf:amtFaultInfo>
+                                                            </amf:amtFaultDetail>
                                                         </detail>
                                                     </soapenv:Fault>
                                                 </soapenv:Body>
@@ -101,14 +98,14 @@
                                                         </soapenv:Reason>
                                                         <soapenv:Node>$3</soapenv:Node>
                                                         <soapenv:Detail>
-                                                            <amf:amtegaFaultDetail xmlns:amf="http://amtega.xunta.es/plasoaei/soareference/schemas/">
-                                                                <amf:amtegaFaultInfo>
+                                                            <amf:amtFaultDetail xmlns:amf="http://example.es">
+                                                                <amf:amtFaultInfo>
                                                                     <amf:errorCode>$1</amf:errorCode>
                                                                     <amf:endpoint>$3</amf:endpoint>
                                                                     <amf:proxyName>$4</amf:proxyName>
                                                                     <amf:detail>$5</amf:detail>
-                                                                </amf:amtegaFaultInfo>
-                                                            </amf:amtegaFaultDetail>
+                                                                </amf:amtFaultInfo>
+                                                            </amf:amtFaultDetail>
                                                         </soapenv:Detail>
                                                     </soapenv:Fault>
                                                 </soapenv:Body>
@@ -130,11 +127,9 @@
             </filter>
             <header action="remove" name="To" scope="default"/>
             <property name="RESPONSE" scope="default" type="STRING" value="true"/>
-            <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-				+ Si existe AmtegaMessageID se establece como HTTP Header + +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-            <filter description="Si existe AmtegaMessageID se establece como HTTP Header" xpath="$ctx:AmtegaMessageID">
+            <filter description="Si existe AmtMessageID se establece como HTTP Header" xpath="$ctx:AmtMessageID">
                 <then>
-                    <property expression="$ctx:AmtegaMessageID" name="AmtegaMessageID" scope="transport" type="STRING"/>
+                    <property expression="$ctx:AmtMessageID" name="AmtMessageID" scope="transport" type="STRING"/>
                 </then>
                 <else/>
             </filter>
